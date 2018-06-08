@@ -108,7 +108,7 @@ for sFile in sFileList:
             
             sReadList = sReadLine.replace("\n", "").split("\t")
                             
-            if sReadList[0] <= "2":
+            if float(sReadList[0]) <= 2:
                 
                 fMovement =  float(sReadList[22])
                 fBodySize = float(sReadList[25])
