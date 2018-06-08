@@ -91,17 +91,17 @@ plt.hist(np.array(fEarlyBodySizeList), bins = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 
 plt.title("Cohorts Across Disribution of Early-Adulthood Body Size")
 plt.show()
 
-sOutFile11 = open(sPath + "../../Data/short_lived_test.txt", "w")
-sOutFile12 = open(sPath + "../../Data/short_lived_test_accuracy.txt", "w") # for calcluating test accuracy
-sOutFile13 = open(sPath + "../../Data/short_lived_train_accuracy.txt", "w") # for calculating training accuracy
+sOutFile11 = open(sPath + "../../Data/short_lived_train.txt", "w")
+sOutFile12 = open(sPath + "../../Data/short_lived_train_accuracy.txt", "w") # for calcluating training accuracy
+sOutFile13 = open(sPath + "../../Data/short_lived_test_accuracy.txt", "w") # for calculating test accuracy
 
-sOutFile21 = open(sPath + "../../Data/normal_lived_test.txt", "w")
-sOutFile22 = open(sPath + "../../Data/normal_lived_test_accuracy.txt", "w") # for calcluating test accuracy
-sOutFile23 = open(sPath + "../../Data/normal_lived_train_accuracy.txt", "w") # for calculating training accuracy
+sOutFile21 = open(sPath + "../../Data/normal_lived_train.txt", "w")
+sOutFile22 = open(sPath + "../../Data/normal_lived_train_accuracy.txt", "w") # for calcluating training accuracy
+sOutFile23 = open(sPath + "../../Data/normal_lived_test_accuracy.txt", "w") # for calculating test accuracy
 
-sOutFile31 = open(sPath + "../../Data/long_lived_test.txt", "w")
-sOutFile32 = open(sPath + "../../Data/long_lived_test_accuracy.txt", "w") # for calcluating test accuracy
-sOutFile33 = open(sPath + "../../Data/long_lived_train_accuracy.txt", "w") # for calculating training accuracy
+sOutFile31 = open(sPath + "../../Data/long_lived_train.txt", "w")
+sOutFile32 = open(sPath + "../../Data/long_lived_train_accuracy.txt", "w") # for calcluating training accuracy
+sOutFile33 = open(sPath + "../../Data/long_lived_test_accuracy.txt", "w") # for calculating test accuracy
 
 nFileNum = 0
 
@@ -264,39 +264,39 @@ for sFile in sFileList:
                 
                 if fLifeSpan < 8:
                     
-                    # test set
+                    # training set
                     if fRandU < 0.5:
                         
                         sOutFile11.write(sClassListString + "0\t")
                         sOutFile12.write(sClassListString[:-1] + "\n")
                         
-                    # training set
+                    # test set
                     else:
                         
                         sOutFile13.write(sClassListString[:-1] + "\n")
                     
                 elif fLifeSpan < 12:
                     
-                    # test set
+                    # training set
                     if fRandU < 0.5:
                         
                         sOutFile21.write(sClassListString + "0\t")
                         sOutFile22.write(sClassListString[:-1] + "\n")
                         
-                    # training set
+                    # test set
                     else:
                         
                         sOutFile23.write(sClassListString[:-1] + "\n")
                     
                 else:
                     
-                    # test set
+                    # training set
                     if fRandU < 0.5:
                         
                         sOutFile31.write(sClassListString + "0\t")
                         sOutFile32.write(sClassListString[:-1] + "\n")
                         
-                    # training set
+                    # test set
                     else:
                         
                         sOutFile33.write(sClassListString[:-1] + "\n")
