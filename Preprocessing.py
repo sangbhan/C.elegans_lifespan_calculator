@@ -267,7 +267,8 @@ for sFile in sFileList:
                     # training set
                     if fRandU < 0.5:
                         
-                        sOutFile11.write(sClassListString + "0\t")
+                        # There was no individual classified into class 3, so I used it to mark end of sequence" 
+                        sOutFile11.write(sClassListString + "3\t")
                         sOutFile12.write(sClassListString[:-1] + "\n")
                         
                     # test set
@@ -280,7 +281,8 @@ for sFile in sFileList:
                     # training set
                     if fRandU < 0.5:
                         
-                        sOutFile21.write(sClassListString + "0\t")
+                        # There was no individual classified into class 3, so I used it to mark end of sequence" 
+                        sOutFile21.write(sClassListString + "3\t")
                         sOutFile22.write(sClassListString[:-1] + "\n")
                         
                     # test set
@@ -293,7 +295,8 @@ for sFile in sFileList:
                     # training set
                     if fRandU < 0.5:
                         
-                        sOutFile31.write(sClassListString + "0\t")
+                        # There was no individual classified into class 3, so I used it to mark end of sequence" 
+                        sOutFile31.write(sClassListString + "3\t")
                         sOutFile32.write(sClassListString[:-1] + "\n")
                         
                     # test set
