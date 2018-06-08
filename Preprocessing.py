@@ -15,6 +15,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+np.random.seed(777)
+
 sPath = "C:/Users/Sangbin/Desktop/mmc2/processed/"
 
 sFileList = os.listdir(sPath)
@@ -89,9 +91,17 @@ plt.hist(np.array(fEarlyBodySizeList), bins = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 
 plt.title("Cohorts Across Disribution of Early-Adulthood Body Size")
 plt.show()
 
-sOutFile1 = open(sPath + "../../Data/short_lived.txt", "w")
-sOutFile2 = open(sPath + "../../Data/normal_lived.txt", "w")
-sOutFile3 = open(sPath + "../../Data/long_lived.txt", "w")
+sOutFile11 = open(sPath + "../../Data/short_lived_test.txt", "w")
+sOutFile12 = open(sPath + "../../Data/short_lived_test_accuracy.txt", "w") # for calcluating test accuracy
+sOutFile13 = open(sPath + "../../Data/short_lived_train_accuracy.txt", "w") # for calculating training accuracy
+
+sOutFile21 = open(sPath + "../../Data/normal_lived_test.txt", "w")
+sOutFile22 = open(sPath + "../../Data/normal_lived_test_accuracy.txt", "w") # for calcluating test accuracy
+sOutFile23 = open(sPath + "../../Data/normal_lived_train_accuracy.txt", "w") # for calculating training accuracy
+
+sOutFile31 = open(sPath + "../../Data/long_lived_test.txt", "w")
+sOutFile32 = open(sPath + "../../Data/long_lived_test_accuracy.txt", "w") # for calcluating test accuracy
+sOutFile33 = open(sPath + "../../Data/long_lived_train_accuracy.txt", "w") # for calculating training accuracy
 
 nFileNum = 0
 
@@ -103,6 +113,8 @@ for sFile in sFileList:
         sInFile.readline()
         
         sClassListString = ""
+        
+        fRandU = np.random.uniform(size = 1)
         
         for sReadLine in sInFile.readlines():
             
@@ -252,15 +264,42 @@ for sFile in sFileList:
                 
                 if fLifeSpan < 8:
                     
-                    sOutFile1.write(sClassListString[:-1] + "\n")
+                    # test set
+                    if fRandU < 0.5:
+                        
+                        sOutFile11.write(sClassListString + "0\t")
+                        sOutFile12.write(sClassListString[:-1] + "\n")
+                        
+                    # training set
+                    else:
+                        
+                        sOutFile13.write(sClassListString[:-1] + "\n")
                     
                 elif fLifeSpan < 12:
                     
-                    sOutFile2.write(sClassListString[:-1] + "\n")
+                    # test set
+                    if fRandU < 0.5:
+                        
+                        sOutFile21.write(sClassListString + "0\t")
+                        sOutFile22.write(sClassListString[:-1] + "\n")
+                        
+                    # training set
+                    else:
+                        
+                        sOutFile23.write(sClassListString[:-1] + "\n")
                     
                 else:
-                
-                    sOutFile3.write(sClassListString[:-1] + "\n")
+                    
+                    # test set
+                    if fRandU < 0.5:
+                        
+                        sOutFile31.write(sClassListString + "0\t")
+                        sOutFile32.write(sClassListString[:-1] + "\n")
+                        
+                    # training set
+                    else:
+                        
+                        sOutFile33.write(sClassListString[:-1] + "\n")
                     
                 sInFile.close()
                 
@@ -268,6 +307,12 @@ for sFile in sFileList:
                 
                 break
         
-sOutFile1.close()
-sOutFile2.close()
-sOutFile3.close()
+sOutFile11.close()
+sOutFile12.close()
+sOutFile13.close()
+sOutFile21.close()
+sOutFile22.close()
+sOutFile23.close()
+sOutFile31.close()
+sOutFile32.close()
+sOutFile33.close()
