@@ -15,7 +15,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-np.random.seed(777)
+np.random.seed(77)
 
 sPath = "C:/Users/Sangbin/Desktop/mmc2/processed/"
 
@@ -104,7 +104,7 @@ sOutFile32 = open(sPath + "../../Data/long_lived_train_accuracy.txt", "w") # for
 sOutFile33 = open(sPath + "../../Data/long_lived_test_accuracy.txt", "w") # for calculating test accuracy
 
 nFileNum = 0
-fRandUList = np.random.uniform(size = 734)
+nRandList = np.random.choice(734, size = 367)
 
 for sFile in sFileList:
     
@@ -114,8 +114,6 @@ for sFile in sFileList:
         sInFile.readline()
         
         sClassListString = ""
-        
-        fRandU = fRandUList[nFileNum]
         
         for sReadLine in sInFile.readlines():
             
@@ -266,7 +264,7 @@ for sFile in sFileList:
                 if fLifeSpan < 8:
                     
                     # training set
-                    if fRandU < 0.5:
+                    if nFileNum not in nRandList:
                         
                         # There was no individual classified into class 3, so I used it to mark end of sequence" 
                         sOutFile11.write(sClassListString + "3\t")
@@ -280,7 +278,7 @@ for sFile in sFileList:
                 elif fLifeSpan < 12:
                     
                     # training set
-                    if fRandU < 0.5:
+                    if nFileNum not in nRandList:
                         
                         # There was no individual classified into class 3, so I used it to mark end of sequence" 
                         sOutFile21.write(sClassListString + "3\t")
@@ -294,7 +292,7 @@ for sFile in sFileList:
                 else:
                     
                     # training set
-                    if fRandU < 0.5:
+                    if nFileNum not in nRandList:
                         
                         # There was no individual classified into class 3, so I used it to mark end of sequence" 
                         sOutFile31.write(sClassListString + "3\t")
