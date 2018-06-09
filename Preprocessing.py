@@ -104,6 +104,7 @@ sOutFile32 = open(sPath + "../../Data/long_lived_train_accuracy.txt", "w") # for
 sOutFile33 = open(sPath + "../../Data/long_lived_test_accuracy.txt", "w") # for calculating test accuracy
 
 nFileNum = 0
+fRandUList = np.random.uniform(size = 734)
 
 for sFile in sFileList:
     
@@ -114,7 +115,7 @@ for sFile in sFileList:
         
         sClassListString = ""
         
-        fRandU = np.random.uniform(size = 1)
+        fRandU = fRandUList[nFileNum]
         
         for sReadLine in sInFile.readlines():
             
