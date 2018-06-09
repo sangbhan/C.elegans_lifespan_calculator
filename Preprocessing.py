@@ -30,6 +30,7 @@ fEarlyMovementList = []
 fEarlyBodySizeList = []
 fEarlyEggList = []
 
+# extract movement, body size, area of eggs laid, and lifespan data
 for sFile in sFileList:
     
     if sFile != 'metadata.tsv':
@@ -67,45 +68,47 @@ for sFile in sFileList:
 
         sInFile.close()
 
+# plot cohorts across disribution of adult lifespans
 plt.xlabel('Adult Lifespan ($days$)')
 plt.ylabel('Number of Individuals')
 plt.hist(np.array(fLifeSpanList), bins = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], facecolor = 'C2')
 plt.title("Cohorts Across Disribution of Adult Lifespans")
 plt.show()
 
+# plot cohorts across disribution of early adulthood movement
 plt.xlabel('Displacement Over 3 Hours ($mm$)')
 plt.ylabel('Frequency')
 plt.hist(np.array(fEarlyMovementList), bins = [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2], facecolor = 'C4', density = True)
 plt.title("Cohorts Across Disribution of Early-Adulthood Movement")
 plt.show()
 
+# plot cohorts across disribution of early adulthood cumulative area of eggs laid
 plt.xlabel('Cumulative Area of Eggs Laid ($mm^2$)')
 plt.ylabel('Frequency')
 plt.hist(np.array(fEarlyEggList), bins = [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55], facecolor = 'C9', density = True)
 plt.title("Cohorts Across Disribution of Early-Adulthood Cumulative Area of Eggs Laid")
 plt.show()
 
+# plot cohorts across disribution of early adulthood body size
 plt.xlabel('Cross-Sectional Size (adjusted for machine bias) ($mm^2$)')
 plt.ylabel('Frequency')
 plt.hist(np.array(fEarlyBodySizeList), bins = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11], facecolor = 'C3', density = True)
 plt.title("Cohorts Across Disribution of Early-Adulthood Body Size")
 plt.show()
 
-sOutFile11 = open(sPath + "../../Data/short_lived_train.txt", "w")
 sOutFile12 = open(sPath + "../../Data/short_lived_train_accuracy.txt", "w") # for calcluating training accuracy
 sOutFile13 = open(sPath + "../../Data/short_lived_test_accuracy.txt", "w") # for calculating test accuracy
 
-sOutFile21 = open(sPath + "../../Data/normal_lived_train.txt", "w")
 sOutFile22 = open(sPath + "../../Data/normal_lived_train_accuracy.txt", "w") # for calcluating training accuracy
 sOutFile23 = open(sPath + "../../Data/normal_lived_test_accuracy.txt", "w") # for calculating test accuracy
 
-sOutFile31 = open(sPath + "../../Data/long_lived_train.txt", "w")
 sOutFile32 = open(sPath + "../../Data/long_lived_train_accuracy.txt", "w") # for calcluating training accuracy
 sOutFile33 = open(sPath + "../../Data/long_lived_test_accuracy.txt", "w") # for calculating test accuracy
 
 nFileNum = 0
 nRandList = np.random.choice(734, size = 367)
 
+# classify extracted data into 27 classes and save
 for sFile in sFileList:
     
     if sFile != 'metadata.tsv':
@@ -131,43 +134,43 @@ for sFile in sFileList:
                         
                         if fEgg < 0.0370:
                             
-                            sClassListString += "1\t"
+                            sClassListString += "1\t" # classified into class 1
                             
                         elif fEgg < 0.0775:
                             
-                            sClassListString += "2\t"
+                            sClassListString += "2\t" # classified into class 2
                             
                         else:
                             
-                            sClassListString += "3\t"
+                            sClassListString += "3\t" # classified into class 3
                         
                     elif fBodySize < 0.0809:
                         
                         if fEgg < 0.0370:
                             
-                            sClassListString += "4\t"
+                            sClassListString += "4\t" # classified into class 4
                             
                         elif fEgg < 0.0775:
                             
-                            sClassListString += "5\t"
+                            sClassListString += "5\t" # classified into class 5
                             
                         else:
                             
-                            sClassListString += "6\t"
+                            sClassListString += "6\t" # classified into class 6
                             
                     else:
                     
                         if fEgg < 0.0370:
                             
-                            sClassListString += "7\t"
+                            sClassListString += "7\t" # classified into class 7
                             
                         elif fEgg < 0.0775:
                             
-                            sClassListString += "8\t"
+                            sClassListString += "8\t" # classified into class 8
                             
                         else:
                             
-                            sClassListString += "9\t"
+                            sClassListString += "9\t" # classified into class 9
                             
                 elif fMovement < 0.6:
                     
@@ -175,43 +178,43 @@ for sFile in sFileList:
                         
                         if fEgg < 0.0370:
                         
-                            sClassListString += "10\t"    
+                            sClassListString += "10\t" # classified into class 10    
                         
                         elif fEgg < 0.0775:
                         
-                            sClassListString += "11\t"    
+                            sClassListString += "11\t" # classified into class 11    
                                                     
                         else:
                         
-                            sClassListString += "12\t"    
+                            sClassListString += "12\t" # classified into class 12    
                                                 
                     elif fBodySize < 0.0809:
                         
                         if fEgg < 0.0370:
                         
-                            sClassListString += "13\t"    
+                            sClassListString += "13\t" # classified into class 13    
                             
                         elif fEgg < 0.0775:
                         
-                            sClassListString += "14\t"    
+                            sClassListString += "14\t" # classified into class 14    
                             
                         else:
                         
-                            sClassListString += "15\t"    
+                            sClassListString += "15\t" # classified into class 15    
                             
                     else:
                     
                         if fEgg < 0.0370:
                         
-                            sClassListString += "16\t"    
+                            sClassListString += "16\t" # classified into class 16    
                             
                         elif fEgg < 0.0775:
                         
-                            sClassListString += "17\t"    
+                            sClassListString += "17\t" # classified into class 17    
                             
                         else:
                         
-                            sClassListString += "18\t"    
+                            sClassListString += "18\t" # classified into class 18    
                             
                 else:
                     
@@ -219,43 +222,43 @@ for sFile in sFileList:
                         
                         if fEgg < 0.0370:
                         
-                            sClassListString += "19\t"    
+                            sClassListString += "19\t" # classified into class 19    
                             
                         elif fEgg < 0.0775:
                         
-                            sClassListString += "20\t"    
+                            sClassListString += "20\t" # classified into class 20   
                             
                         else:
                         
-                            sClassListString += "21\t"    
+                            sClassListString += "21\t" # classified into class 21   
                         
                     elif fBodySize < 0.0809:
                         
                         if fEgg < 0.0370:
                         
-                            sClassListString += "22\t"    
+                            sClassListString += "22\t" # classified into class 22   
                             
                         elif fEgg < 0.0775:
                         
-                            sClassListString += "23\t"    
+                            sClassListString += "23\t" # classified into class 23   
                             
                         else:
                         
-                            sClassListString += "24\t"    
+                            sClassListString += "24\t" # classified into class 24
                             
                     else:
                     
                         if fEgg < 0.0370:
                         
-                            sClassListString += "25\t"    
+                            sClassListString += "25\t" # classified into class 25    
                             
                         elif fEgg < 0.0775:
                         
-                            sClassListString += "26\t"    
+                            sClassListString += "26\t" # classified into class 26    
                             
                         else:
                         
-                            sClassListString += "27\t"    
+                            sClassListString += "27\t" # classified into class 27    
                                    
             else:
                 
@@ -266,8 +269,6 @@ for sFile in sFileList:
                     # training set
                     if nFileNum not in nRandList:
                         
-                        # There was no individual classified into class 3, so I used it to mark end of sequence" 
-                        sOutFile11.write(sClassListString + "3\t")
                         sOutFile12.write(sClassListString[:-1] + "\n")
                         
                     # test set
@@ -280,8 +281,6 @@ for sFile in sFileList:
                     # training set
                     if nFileNum not in nRandList:
                         
-                        # There was no individual classified into class 3, so I used it to mark end of sequence" 
-                        sOutFile21.write(sClassListString + "3\t")
                         sOutFile22.write(sClassListString[:-1] + "\n")
                         
                     # test set
@@ -294,8 +293,6 @@ for sFile in sFileList:
                     # training set
                     if nFileNum not in nRandList:
                         
-                        # There was no individual classified into class 3, so I used it to mark end of sequence" 
-                        sOutFile31.write(sClassListString + "3\t")
                         sOutFile32.write(sClassListString[:-1] + "\n")
                         
                     # test set
@@ -309,12 +306,9 @@ for sFile in sFileList:
                 
                 break
         
-sOutFile11.close()
 sOutFile12.close()
 sOutFile13.close()
-sOutFile21.close()
 sOutFile22.close()
 sOutFile23.close()
-sOutFile31.close()
 sOutFile32.close()
 sOutFile33.close()

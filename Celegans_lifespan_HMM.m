@@ -1,30 +1,4 @@
-% This program predicts individual's lifespan using early adulthood health data.
-
-formatSpec = '%f';
-
-% open short-lived training data
-filename = 'C:\Users\Sangbin\Desktop\Data\short_lived_train.txt';
-fileID = fopen(filename,'r');
-shortlived_train = fscanf(fileID, formatSpec);
-fclose(fileID);
-
-% open normal-lived training data
-filename = 'C:\Users\Sangbin\Desktop\Data\normal_lived_train.txt';
-fileID = fopen(filename,'r');
-normallived_train = fscanf(fileID, formatSpec);
-fclose(fileID);
-
-% open long-lived training data
-filename = 'C:\Users\Sangbin\Desktop\Data\long_lived_train.txt';
-fileID = fopen(filename,'r');
-longlived_train = fscanf(fileID, formatSpec);
-fclose(fileID);
-
-STATE_NUM = 1:3:19;
-EMISSION_NUM = 27;
-
-maxiter = 100;
-tol = 1e-6;
+% This program predicts C.elegans lifespan using early adulthood health data with a hidden Markov model.
 
 formatSpec = '%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f%f';
 
@@ -33,7 +7,7 @@ filename = 'C:\Users\Sangbin\Desktop\Data\short_lived_test_accuracy.txt';
 shortlived_test_a = table2array(readtable(filename, 'Format', formatSpec));
 shortlived_test_accuracy = zeros(1, 7);
 
-% open short-lived training data for accuracy calculation
+% open short-lived training data for training and accuracy calculation
 filename = 'C:\Users\Sangbin\Desktop\Data\short_lived_train_accuracy.txt';
 shortlived_train_a = table2array(readtable(filename,'Format', formatSpec));
 shortlived_train_accuracy = zeros(1, 7);
@@ -43,7 +17,7 @@ filename = 'C:\Users\Sangbin\Desktop\Data\normal_lived_test_accuracy.txt';
 normallived_test_a = table2array(readtable(filename, 'Format', formatSpec));
 normallived_test_accuracy = zeros(1, 7);
 
-% open normal-lived training data for accuracy calculation
+% open normal-lived training data for training and accuracy calculation
 filename = 'C:\Users\Sangbin\Desktop\Data\normal_lived_train_accuracy.txt';
 normallived_train_a = table2array(readtable(filename,'Format', formatSpec));
 normallived_train_accuracy = zeros(1, 7);
@@ -53,20 +27,30 @@ filename = 'C:\Users\Sangbin\Desktop\Data\long_lived_test_accuracy.txt';
 longlived_test_a = table2array(readtable(filename, 'Format', formatSpec));
 longlived_test_accuracy = zeros(1, 7);
 
-% open long-lived training data for accuracy calculation
+% open long-lived training data for training and accuracy calculation
 filename = 'C:\Users\Sangbin\Desktop\Data\long_lived_train_accuracy.txt';
 longlived_train_a = table2array(readtable(filename,'Format', formatSpec));
 longlived_train_accuracy = zeros(1, 7);
 
-for j = 1:7
+STATE_NUM = 1:3:19;
+EMISSION_NUM = 27;
 
+maxiter = 100;
+tol = 1e-6;
+
+% calculate accuracy by number of hidden states
+for j = 1:7
+    
+    % initialize transition matrix and emission matrix
     TRANS_INIT = (ones(STATE_NUM(j), STATE_NUM(j)) + eye(STATE_NUM(j))) / (STATE_NUM(j) + 1);
     EMIS_INIT = ones(STATE_NUM(j), EMISSION_NUM) / EMISSION_NUM;
     
+    % train transition matrix and emission matrix
     [TRANS_short, EMIS_short] = hmmtrain(shortlived_train_a, TRANS_INIT, EMIS_INIT, 'tolerance', tol, 'maxiterations', maxiter);
     [TRANS_normal, EMIS_normal] = hmmtrain(normallived_train_a, TRANS_INIT, EMIS_INIT, 'tolerance', tol, 'maxiterations', maxiter);
     [TRANS_long, EMIS_long] = hmmtrain(longlived_train_a, TRANS_INIT, EMIS_INIT, 'tolerance', tol, 'maxiterations', maxiter);
     
+    % calculate short-lived training accuracy by number of hidden states
     for i = 1:size(shortlived_train_a, 1)
 
         logpseq = [0 0 0];
@@ -85,6 +69,7 @@ for j = 1:7
 
     shortlived_train_accuracy(j) = shortlived_train_accuracy(j) * 100 / size(shortlived_train_a, 1);
 
+    % calculate short-lived test accuracy by number of hidden states
     for i = 1:size(shortlived_test_a, 1)
 
         logpseq = [0 0 0];
@@ -103,6 +88,7 @@ for j = 1:7
 
     shortlived_test_accuracy(j) = shortlived_test_accuracy(j) * 100 / size(shortlived_test_a, 1);
 
+    % calculate normal-lived training accuracy by number of hidden states
     for i = 1:size(normallived_train_a, 1)
 
         logpseq = [0 0 0];
@@ -121,6 +107,7 @@ for j = 1:7
 
     normallived_train_accuracy(j) = normallived_train_accuracy(j) * 100 / size(normallived_train_a, 1);
 
+    % calculate normal-lived test accuracy by number of hidden states
     for i = 1:size(normallived_test_a, 1)
 
         logpseq = [0 0 0];
@@ -139,6 +126,7 @@ for j = 1:7
 
     normallived_test_accuracy(j) = normallived_test_accuracy(j) * 100 / size(normallived_test_a, 1);
 
+    % calculate long-lived training accuracy by number of hidden states
     for i = 1:size(longlived_train_a, 1)
 
         logpseq = [0 0 0];
@@ -157,6 +145,7 @@ for j = 1:7
 
     longlived_train_accuracy(j) = longlived_train_accuracy(j) * 100 / size(longlived_train_a, 1);
 
+    % calculate long-lived test accuracy by number of hidden states
     for i = 1:size(longlived_test_a, 1)
 
         logpseq = [0 0 0];
@@ -177,6 +166,7 @@ for j = 1:7
 
 end
 
+% plot accuracy by number of hidden states
 plot(1:3:19, shortlived_train_accuracy, '-v', 1:3:19, shortlived_test_accuracy, '->', 1:3:19, normallived_train_accuracy, '-<', 1:3:19, normallived_test_accuracy, '-s', 1:3:19, longlived_train_accuracy, '-^', 1:3:19, longlived_test_accuracy, '-o')
 axis([0 20 0 70])
 legend('short-lived training accuracy', 'short-lived test accuracy', 'normal-lived training accuracy', 'normal-lived test accuracy', 'long-lived training accuracy', 'long-lived test accuracy')
@@ -185,6 +175,8 @@ ylabel('Accuracy (%)')
 title('Accuracy by number of hidden states', 'FontSize', 12)
 
 
+
+% initialize transition matrix and emission matrix
 STATE_NUM = 4;
 TRANS_INIT = (ones(STATE_NUM, STATE_NUM) + eye(STATE_NUM)) / (STATE_NUM + 1);
 EMIS_INIT = ones(STATE_NUM, EMISSION_NUM) / EMISSION_NUM;
@@ -199,12 +191,15 @@ normallived_train_accuracy = zeros(1, 7);
 longlived_test_accuracy = zeros(1, 7);
 longlived_train_accuracy = zeros(1, 7);
 
+% calculate accuracy by tolerance
 for j = 1:7
     
+    % train transition matrix and emission matrix
     [TRANS_short, EMIS_short] = hmmtrain(shortlived_train_a, TRANS_INIT, EMIS_INIT, 'tolerance', tol(j), 'maxiterations', maxiter);
     [TRANS_normal, EMIS_normal] = hmmtrain(normallived_train_a, TRANS_INIT, EMIS_INIT, 'tolerance', tol(j), 'maxiterations', maxiter);
     [TRANS_long, EMIS_long] = hmmtrain(longlived_train_a, TRANS_INIT, EMIS_INIT, 'tolerance', tol(j), 'maxiterations', maxiter);
     
+    % calculate short-lived training accuracy by tolerance
     for i = 1:size(shortlived_train_a, 1)
 
         logpseq = [0 0 0];
@@ -223,6 +218,7 @@ for j = 1:7
 
     shortlived_train_accuracy(j) = shortlived_train_accuracy(j) * 100 / size(shortlived_train_a, 1);
 
+    % calculate short-lived test accuracy by tolerance
     for i = 1:size(shortlived_test_a, 1)
 
         logpseq = [0 0 0];
@@ -241,6 +237,7 @@ for j = 1:7
 
     shortlived_test_accuracy(j) = shortlived_test_accuracy(j) * 100 / size(shortlived_test_a, 1);
 
+    % calculate normal-lived training accuracy by tolerance
     for i = 1:size(normallived_train_a, 1)
 
         logpseq = [0 0 0];
@@ -259,6 +256,7 @@ for j = 1:7
 
     normallived_train_accuracy(j) = normallived_train_accuracy(j) * 100 / size(normallived_train_a, 1);
 
+    % calculate normal-lived test accuracy by tolerance
     for i = 1:size(normallived_test_a, 1)
 
         logpseq = [0 0 0];
@@ -277,6 +275,7 @@ for j = 1:7
 
     normallived_test_accuracy(j) = normallived_test_accuracy(j) * 100 / size(normallived_test_a, 1);
 
+    % calculate long-lived training accuracy by tolerance
     for i = 1:size(longlived_train_a, 1)
 
         logpseq = [0 0 0];
@@ -295,6 +294,7 @@ for j = 1:7
 
     longlived_train_accuracy(j) = longlived_train_accuracy(j) * 100 / size(longlived_train_a, 1);
 
+    % calculate long-lived test accuracy by tolerance
     for i = 1:size(longlived_test_a, 1)
 
         logpseq = [0 0 0];
@@ -315,6 +315,7 @@ for j = 1:7
 
 end
 
+% plot accuracy by tolerance
 plot(1:7, shortlived_train_accuracy, '-v', 1:7, shortlived_test_accuracy, '->', 1:7, normallived_train_accuracy, '-<', 1:7, normallived_test_accuracy, '-s', 1:7, longlived_train_accuracy, '-^', 1:7, longlived_test_accuracy, '-o')
 axis([0 8 0 70])
 legend('short-lived training accuracy', 'short-lived test accuracy', 'normal-lived training accuracy', 'normal-lived test accuracy', 'long-lived training accuracy', 'long-lived test accuracy')
