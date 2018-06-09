@@ -175,13 +175,12 @@ ylabel('Accuracy (%)')
 title('Accuracy by number of hidden states', 'FontSize', 12)
 
 
-
 % initialize transition matrix and emission matrix
-STATE_NUM = 4;
+STATE_NUM = 13;
 TRANS_INIT = (ones(STATE_NUM, STATE_NUM) + eye(STATE_NUM)) / (STATE_NUM + 1);
 EMIS_INIT = ones(STATE_NUM, EMISSION_NUM) / EMISSION_NUM;
 
-maxiter = 1000;
+maxiter = 100;
 tol = [1e-1 1e-2 1e-3 1e-4 1e-5 1e-6 1e-7];
 
 shortlived_test_accuracy = zeros(1, 7);
@@ -317,7 +316,7 @@ end
 
 % plot accuracy by tolerance
 plot(1:7, shortlived_train_accuracy, '-v', 1:7, shortlived_test_accuracy, '->', 1:7, normallived_train_accuracy, '-<', 1:7, normallived_test_accuracy, '-s', 1:7, longlived_train_accuracy, '-^', 1:7, longlived_test_accuracy, '-o')
-axis([0 8 0 70])
+axis([0 8 0 60])
 legend('short-lived training accuracy', 'short-lived test accuracy', 'normal-lived training accuracy', 'normal-lived test accuracy', 'long-lived training accuracy', 'long-lived test accuracy')
 xlabel('-log(tolerance)')
 ylabel('Accuracy (%)')
