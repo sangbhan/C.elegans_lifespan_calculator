@@ -128,7 +128,7 @@ for sFile in sFileList:
                 fBodySize = float(sReadList[25])
                 fEgg = float(sReadList[29])
                 
-                if fMovement < 0.4:
+                if fMovement < 0.438:
                     
                     if fBodySize < 0.0666:
                         
@@ -172,7 +172,7 @@ for sFile in sFileList:
                             
                             sClassListString += "9\t" # classified into class 9
                             
-                elif fMovement < 0.6:
+                elif fMovement < 0.545:
                     
                     if fBodySize < 0.0666:
                         
