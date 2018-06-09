@@ -16,7 +16,7 @@ fileID = fopen(filename,'r');
 longlived_train = fscanf(fileID, formatSpec);
 fclose(fileID);
 
-STATE_NUM = 1:10;
+STATE_NUM = 1:30;
 EMISSION_NUM = 27;
 
 maxiter = 10000;
@@ -24,29 +24,29 @@ tol = 1e-4;
 
 filename = 'C:\Users\Sangbin\Desktop\Data\short_lived_test_accuracy.txt';
 shortlived_test_a = table2array(readtable(filename, 'Format', formatSpec));
-shortlived_test_accuracy = 1:10;
+shortlived_test_accuracy = 1:30;
 
 filename = 'C:\Users\Sangbin\Desktop\Data\short_lived_train_accuracy.txt';
 shortlived_train_a = table2array(readtable(filename,'Format', formatSpec));
-shortlived_train_accuracy = 1:10;
+shortlived_train_accuracy = 1:30;
 
 filename = 'C:\Users\Sangbin\Desktop\Data\normal_lived_train_accuracy.txt';
 normallived_train_a = table2array(readtable(filename,'Format', formatSpec));
-normallived_train_accuracy = 1:10;
+normallived_train_accuracy = 1:30;
 
 filename = 'C:\Users\Sangbin\Desktop\Data\short_lived_test_accuracy.txt';
 normallived_test_a = table2array(readtable(filename, 'Format', formatSpec));
-normallived_test_accuracy = 1:10;
+normallived_test_accuracy = 1:30;
         
 filename = 'C:\Users\Sangbin\Desktop\Data\short_lived_train_accuracy.txt';
 longlived_train_a = table2array(readtable(filename,'Format', formatSpec));
-longlived_train_accuracy = 1:10;
+longlived_train_accuracy = 1:30;
 
 filename = 'C:\Users\Sangbin\Desktop\Data\short_lived_test_accuracy.txt';
 longlived_test_a = table2array(readtable(filename, 'Format', formatSpec));
-longlived_test_accuracy = 1:10;
+longlived_test_accuracy = 1:30;
 
-for j = 1:10
+for j = 1:30
 
     TRANS_INIT = (ones(STATE_NUM(j), STATE_NUM(j)) + eye(STATE_NUM(j), STATE_NUM(j)))/(STATE_NUM(j) + 1);
     EMIS_INIT = ones(STATE_NUM(j), EMISSION_NUM)/EMISSION_NUM;
@@ -166,3 +166,6 @@ for j = 1:10
     longlived_test_accuracy(j) = longlived_test_accuracy(j) / size(longlived_test_a, 1);
 
 end
+
+plot(1:30, shortlived_train_accuracy, '-v', 1:30, shortlived_test_accuracy, '->', 1:30, normallived_train_accuracy, '-<', 1:30, normallived_test_accuracy, '-s', 1:30, longlived_train_accuracy, '-^', 1:30, longlived_test_accuracy, '-o')
+legend('short-lived training accuracy', 'short-lived test accuracy', 'short-lived training accuracy', 'normal-lived test accuracy', 'long-lived training accuracy', 'long-lived test accuracy')
