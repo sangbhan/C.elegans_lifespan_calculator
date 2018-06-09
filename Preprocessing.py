@@ -69,7 +69,7 @@ for sFile in sFileList:
 
 plt.xlabel('Adult Lifespan ($days$)')
 plt.ylabel('Number of Individuals')
-plt.hist(np.array(fLifeSpanList), bins = [2, 4, 6, 8, 10, 12, 14, 16], facecolor = 'C2')
+plt.hist(np.array(fLifeSpanList), bins = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], facecolor = 'C2')
 plt.title("Cohorts Across Disribution of Adult Lifespans")
 plt.show()
 
@@ -127,13 +127,13 @@ for sFile in sFileList:
                 
                 if fMovement < 0.4:
                     
-                    if fBodySize < 0.06:
+                    if fBodySize < 0.0666:
                         
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                             
                             sClassListString += "1\t"
                             
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                             
                             sClassListString += "2\t"
                             
@@ -141,13 +141,13 @@ for sFile in sFileList:
                             
                             sClassListString += "3\t"
                         
-                    elif fBodySize < 0.09:
+                    elif fBodySize < 0.0809:
                         
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                             
                             sClassListString += "4\t"
                             
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                             
                             sClassListString += "5\t"
                             
@@ -157,11 +157,11 @@ for sFile in sFileList:
                             
                     else:
                     
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                             
                             sClassListString += "7\t"
                             
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                             
                             sClassListString += "8\t"
                             
@@ -171,13 +171,13 @@ for sFile in sFileList:
                             
                 elif fMovement < 0.6:
                     
-                    if fBodySize < 0.06:
+                    if fBodySize < 0.0666:
                         
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                         
                             sClassListString += "10\t"    
                         
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                         
                             sClassListString += "11\t"    
                                                     
@@ -185,13 +185,13 @@ for sFile in sFileList:
                         
                             sClassListString += "12\t"    
                                                 
-                    elif fBodySize < 0.09:
+                    elif fBodySize < 0.0809:
                         
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                         
                             sClassListString += "13\t"    
                             
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                         
                             sClassListString += "14\t"    
                             
@@ -201,11 +201,11 @@ for sFile in sFileList:
                             
                     else:
                     
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                         
                             sClassListString += "16\t"    
                             
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                         
                             sClassListString += "17\t"    
                             
@@ -215,13 +215,13 @@ for sFile in sFileList:
                             
                 else:
                     
-                    if fBodySize < 0.06:
+                    if fBodySize < 0.0666:
                         
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                         
                             sClassListString += "19\t"    
                             
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                         
                             sClassListString += "20\t"    
                             
@@ -229,13 +229,13 @@ for sFile in sFileList:
                         
                             sClassListString += "21\t"    
                         
-                    elif fBodySize < 0.09:
+                    elif fBodySize < 0.0809:
                         
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                         
                             sClassListString += "22\t"    
                             
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                         
                             sClassListString += "23\t"    
                             
@@ -245,11 +245,11 @@ for sFile in sFileList:
                             
                     else:
                     
-                        if fEgg < 0.05:
+                        if fEgg < 0.0370:
                         
                             sClassListString += "25\t"    
                             
-                        elif fEgg < 0.2:
+                        elif fEgg < 0.0775:
                         
                             sClassListString += "26\t"    
                             
@@ -261,7 +261,7 @@ for sFile in sFileList:
                 
                 fLifeSpan = fLifeSpanList[nFileNum]
                 
-                if fLifeSpan < 8:
+                if fLifeSpan < 9.3:
                     
                     # training set
                     if nFileNum not in nRandList:
@@ -275,7 +275,7 @@ for sFile in sFileList:
                         
                         sOutFile13.write(sClassListString[:-1] + "\n")
                     
-                elif fLifeSpan < 12:
+                elif fLifeSpan < 11.1:
                     
                     # training set
                     if nFileNum not in nRandList:
