@@ -1,6 +1,6 @@
 # Caenorhabditis elegans lifespan prediction
 
-I coded this program for Artificial Intelligence course project (Spring 2018 semester, Prof. Byoung-Tak Zhang).
+I coded this program for Artificial Intelligence course project (Spring 2018 semester, Prof. Byoung-Tak Zhang) (<https://bi.snu.ac.kr/Courses/4ai18s/4ai18s.html>).
 
 This program uses a hidden Markov model to predict Caenorhabditis elegans (C. elegans) lifespan from its early adulthood health data.
 
